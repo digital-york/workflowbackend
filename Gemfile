@@ -50,3 +50,17 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # gems required by workflow
 gem 'resque'
 gem 'resque-web', require: 'resque_web'
+gem 'curation_concerns'
+
+
+group :development, :test do
+  gem 'solr_wrapper', '>= 0.3'
+end
+
+gem 'rsolr', '~> 1.0'
+gem 'devise'
+gem 'devise-guests', '~> 0.5'
+group :development, :test do
+  gem 'fcrepo_wrapper'
+  gem 'rspec-rails'
+end
