@@ -19,3 +19,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Ignore helper scripts
+/start_worker.sh
+/start_workflow_backend.sh
