@@ -64,3 +64,5 @@ group :development, :test do
   gem 'fcrepo_wrapper'
   gem 'rspec-rails'
 end
+
+gem 'dlibhydra',         :git => 'git://github.com/digital-york/dlibhydra.git', branch: 'master'

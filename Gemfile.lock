@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/digital-york/dlibhydra.git
+  revision: a9317d4b66ad2eab5053fc938b0729fdce0e0783
+  branch: master
+  specs:
+    dlibhydra (0.1.0)
+      curation_concerns
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -161,7 +169,7 @@ GEM
     diff-lcs (1.2.5)
     dropbox-sdk (1.6.5)
       json
-    ebnf (1.0.1)
+    ebnf (1.0.2)
       rdf (~> 2.0)
       sxp (~> 1.0)
     erubis (2.7.0)
@@ -331,7 +339,7 @@ GEM
     parslet (1.7.1)
       blankslate (>= 2.0, <= 4.0)
     public_suffix (2.0.4)
-    puma (3.6.1)
+    puma (3.6.2)
     qa (0.10.2)
       activerecord-import
       deprecation
@@ -521,6 +529,7 @@ DEPENDENCIES
   curation_concerns
   devise
   devise-guests (~> 0.5)
+  dlibhydra!
   fcrepo_wrapper
   jbuilder (~> 2.5)
   jquery-rails
