@@ -18,6 +18,10 @@ gem 'coffee-rails', '~> 4.2'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
+# in higher version of jquery-rails, rails-jquery-ui-sortable is a seperate gem
+gem 'rails-jquery-ui-sortable'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -65,4 +69,4 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
-gem 'dlibhydra',         :git => 'git://github.com/digital-york/dlibhydra.git', branch: 'master'
+gem 'dlibhydra',         :git => 'git://github.com/digital-york/dlibhydra.git', branch: 'derivatives'
