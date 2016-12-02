@@ -19,8 +19,10 @@ gem 'coffee-rails', '~> 4.2'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+gem 'jquery-ui-rails', '~> 5.0.5'
+
 # in higher version of jquery-rails, rails-jquery-ui-sortable is a seperate gem
-gem 'rails-jquery-ui-sortable'
+# gem 'rails-jquery-ui-sortable'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
