@@ -1,10 +1,13 @@
 GIT
   remote: git://github.com/digital-york/dlibhydra.git
-  revision: a9317d4b66ad2eab5053fc938b0729fdce0e0783
-  branch: master
+  revision: d7508700ce6018d08d27eb94f621c008b8a54186
+  branch: derivatives
   specs:
     dlibhydra (0.1.0)
+      active-fedora
+      active_fedora-noid
       curation_concerns
+      hydra-works
 
 GEM
   remote: https://rubygems.org/
@@ -48,7 +51,7 @@ GEM
     active_attr (0.9.0)
       activemodel (>= 3.0.2, < 5.1)
       activesupport (>= 3.0.2, < 5.1)
-    active_fedora-noid (2.0.0.beta6)
+    active_fedora-noid (2.0.0)
       active-fedora (>= 9.7, < 12)
       noid (~> 0.9)
       rails (>= 4.2.7.1, < 6)
@@ -77,7 +80,7 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    autoprefixer-rails (6.5.3)
+    autoprefixer-rails (6.5.3.1)
       execjs
     awesome_nested_set (3.1.1)
       activerecord (>= 4.0.0, < 5.1)
@@ -128,7 +131,7 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.10.0)
+    coffee-script-source (1.11.1)
     commonjs (0.2.7)
     concurrent-ruby (1.0.2)
     curation_concerns (1.6.3)
@@ -177,7 +180,7 @@ GEM
     extlib (0.9.16)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
-    fcrepo_wrapper (0.6.0)
+    fcrepo_wrapper (0.7.0)
       ruby-progressbar
     ffi (1.9.14)
     font-awesome-rails (4.7.0.0)
@@ -217,15 +220,15 @@ GEM
     http_logger (0.5.1)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
-    hydra-access-controls (10.3.2)
+    hydra-access-controls (10.3.4)
       active-fedora (>= 10.0.0, < 12)
       activesupport (>= 4, < 6)
       blacklight (>= 5.16)
       blacklight-access_controls (~> 0.6)
       cancancan (~> 1.8)
       deprecation (~> 1.0)
-    hydra-core (10.3.2)
-      hydra-access-controls (= 10.3.2)
+    hydra-core (10.3.4)
+      hydra-access-controls (= 10.3.4)
       railties (>= 4.0.0, < 6)
     hydra-derivatives (3.2.1)
       active-fedora (>= 9.0, < 12)
@@ -242,20 +245,20 @@ GEM
       sprockets-es6
     hydra-file_characterization (0.3.3)
       activesupport (>= 3.0.0)
-    hydra-head (10.3.2)
-      hydra-access-controls (= 10.3.2)
-      hydra-core (= 10.3.2)
+    hydra-head (10.3.4)
+      hydra-access-controls (= 10.3.4)
+      hydra-core (= 10.3.4)
       rails (>= 3.2.6)
     hydra-pcdm (0.9.0)
       active-fedora (>= 10, < 12)
       mime-types (>= 1)
-    hydra-works (0.14.0)
+    hydra-works (0.15.0)
       hydra-derivatives (~> 3.0)
       hydra-file_characterization (~> 0.3, >= 0.3.3)
-      hydra-pcdm (>= 0.8)
+      hydra-pcdm (>= 0.9)
       om (~> 3.1)
     i18n (0.7.0)
-    jbuilder (2.6.0)
+    jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jquery-rails (4.2.1)
@@ -276,7 +279,7 @@ GEM
       kaminari (>= 0.16, < 2)
     launchy (2.4.3)
       addressable (~> 2.3)
-    ldp (0.6.1)
+    ldp (0.6.2)
       deprecation
       faraday
       http_logger
@@ -311,12 +314,12 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
-    mini_magick (4.5.1)
+    mini_magick (4.6.0)
     mini_portile2 (2.1.0)
-    minitest (5.9.1)
+    minitest (5.10.1)
     mono_logger (1.1.0)
     multi_json (1.12.1)
-    multi_xml (0.5.5)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (1.2.1)
     noid (0.9.0)
@@ -374,7 +377,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (11.3.0)
+    rake (12.0.0)
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
@@ -487,7 +490,7 @@ GEM
     stomp (1.4.3)
     sxp (1.0.0)
       rdf (~> 2.0)
-    thor (0.19.1)
+    thor (0.19.4)
     thread_safe (0.3.5)
     tilt (2.0.5)
     turbolinks (5.0.1)
@@ -504,7 +507,7 @@ GEM
       railties (>= 3.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.3)
+    uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
     vegas (0.1.11)
       rack (>= 1.0.0)
@@ -533,6 +536,7 @@ DEPENDENCIES
   fcrepo_wrapper
   jbuilder (~> 2.5)
   jquery-rails
+  jquery-ui-rails (~> 5.0.5)
   listen (~> 3.0.5)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)

@@ -1,5 +1,6 @@
 require 'json'
 require 'dlibhydra'
+require 'hydra/works'
 
 class WorkflowWorker
 
@@ -60,9 +61,55 @@ class WorkflowWorker
 	  thesis.permissions = [Hydra::AccessControls::Permission.new({:name=> "public", :type=>"group", :access=>"read"}), 
 	                        Hydra::AccessControls::Permission.new({:name=>"frank.feng@york.ac.uk", :type=> "person", :access => "edit"})]
       thesis.depositor   = "frank.feng@york.ac.uk"
-
+	  
       thesis.save!
-	  puts 'saved'
+	  puts 'saved thesis with id: ' + thesis.id.to_s
+
+	  users = Object::User.all #otherwise it will use one of the included modules
+      user = users[0]	
+	  puts 'found user'
+	  
+	  fileset = Dlibhydra::FileSet.new
+	  
+	  
+	  fileset.title = ['test fileset']
+ 	  fileset.permissions = [Hydra::AccessControls::Permission.new({:name=> "public", :type=>"group", :access=>"read"}), 
+	                        Hydra::AccessControls::Permission.new({:name=>"frank.feng@york.ac.uk", :type=> "person", :access => "edit"})]
+      fileset.depositor   = "frank.feng@york.ac.uk"
+	  #fileset.thumbnail_path_service = CurationConcerns::ThumbnailPathService
+	  puts 'defined fileset'
+	  
+	  contentfile = open("/var/tmp/test.pdf")
+	  actor = CurationConcerns::Actors::FileSetActor.new(fileset, user)
+      puts 'user_key' + user.user_key.to_s
+	  
+	  puts 'defined actor'
+	  actor.create_metadata(thesis)
+	  puts "created metadata" 
+	  actor.create_content(contentfile, relation = 'original_file' )
+	  puts "created content"
+	  
+	  #fileset.create_derivatives("/var/tmp/test.pdf")
+	  #puts 'created derivatives'
+	  
+	  fileset.save!
+	  puts 'fileset saved!'
+	  
+	  thesis.members << fileset
+	  thesis.save!
+	  puts 'added fileset to thesis!'
+	  
+#      thesis.mainfile << fileset	  
+
+	  
+#	  fileset = Hydra::Works::FileSet.new
+#      Hydra::Works::AddFileToFileSet.call(fileset, open("/var/tmp/test.pdf"), 'original_file'.to_sym)
+#      thesis.members << fileset
+#	  fileset.save!
+#	  puts 'fileset saved!'
+	  
+#      fileset.create_derivatives
+#	  puts 'derivatives created'
 
 #      puts "Creating new Fedora object ..."
 #      collection = Dlibhydra::Collection.create(:preflabel => 'Collection test')
