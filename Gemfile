@@ -72,4 +72,6 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
+gem 'dotenv-rails'
+
 gem 'dlibhydra',         :git => 'git://github.com/digital-york/dlibhydra.git', branch: 'derivatives'
