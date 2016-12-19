@@ -23,6 +23,6 @@
 .byebug_history
 
 # Ignore helper scripts
-/start_worker.sh
-/start_workflow_backend.sh
+/startworker.sh
+/startwf.sh
 /cm.sh

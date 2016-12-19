@@ -12,19 +12,19 @@
 
 ActiveRecord::Schema.define(version: 20161122133903) do
 
-  create_table "bookmarks", force: :cascade do |t|
-    t.integer  "user_id",       null: false
+  create_table "bookmarks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id",                     null: false
     t.string   "user_type"
     t.string   "document_id"
     t.string   "document_type"
-    t.binary   "title"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.index ["document_id"], name: "index_bookmarks_on_document_id"
-    t.index ["user_id"], name: "index_bookmarks_on_user_id"
+    t.binary   "title",         limit: 65535
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["document_id"], name: "index_bookmarks_on_document_id", using: :btree
+    t.index ["user_id"], name: "index_bookmarks_on_user_id", using: :btree
   end
 
-  create_table "checksum_audit_logs", force: :cascade do |t|
+  create_table "checksum_audit_logs", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "file_set_id"
     t.string   "file_id"
     t.string   "version"
@@ -33,40 +33,102 @@ ActiveRecord::Schema.define(version: 20161122133903) do
     t.string   "actual_result"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.index ["file_set_id", "file_id"], name: "by_file_set_id_and_file_id"
+    t.index ["file_set_id", "file_id"], name: "by_file_set_id_and_file_id", using: :btree
   end
 
-  create_table "curation_concerns_operations", force: :cascade do |t|
+  create_table "curation_concerns_operations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "status"
     t.string   "operation_type"
     t.string   "job_class"
     t.string   "job_id"
     t.string   "type"
-    t.text     "message"
+    t.text     "message",        limit: 65535
     t.integer  "user_id"
     t.integer  "parent_id"
-    t.integer  "lft",                        null: false
-    t.integer  "rgt",                        null: false
-    t.integer  "depth",          default: 0, null: false
-    t.integer  "children_count", default: 0, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["lft"], name: "index_curation_concerns_operations_on_lft"
-    t.index ["parent_id"], name: "index_curation_concerns_operations_on_parent_id"
-    t.index ["rgt"], name: "index_curation_concerns_operations_on_rgt"
-    t.index ["user_id"], name: "index_curation_concerns_operations_on_user_id"
+    t.integer  "lft",                                      null: false
+    t.integer  "rgt",                                      null: false
+    t.integer  "depth",                        default: 0, null: false
+    t.integer  "children_count",               default: 0, null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index ["lft"], name: "index_curation_concerns_operations_on_lft", using: :btree
+    t.index ["parent_id"], name: "index_curation_concerns_operations_on_parent_id", using: :btree
+    t.index ["rgt"], name: "index_curation_concerns_operations_on_rgt", using: :btree
+    t.index ["user_id"], name: "index_curation_concerns_operations_on_user_id", using: :btree
   end
 
-  create_table "searches", force: :cascade do |t|
-    t.binary   "query_params"
+  create_table "datastreamPaths", primary_key: "tokenDbID", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "token", limit: 199, default: "", null: false
+    t.string "path",              default: "", null: false
+    t.index ["token"], name: "token", unique: true, using: :btree
+  end
+
+  create_table "dcDates", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "pid",    limit: 64, null: false, collation: "utf8_bin"
+    t.bigint "dcDate",            null: false
+    t.index ["pid"], name: "pid", using: :btree
+  end
+
+  create_table "doFields", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "pid",           limit: 64,                  null: false, collation: "utf8_bin"
+    t.string "label"
+    t.string "state",         limit: 1,     default: "A", null: false
+    t.string "ownerId",       limit: 64
+    t.bigint "cDate",                                     null: false
+    t.bigint "mDate",                                     null: false
+    t.bigint "dcmDate"
+    t.text   "dcTitle",       limit: 65535
+    t.text   "dcCreator",     limit: 65535
+    t.text   "dcSubject",     limit: 65535
+    t.text   "dcDescription", limit: 65535
+    t.text   "dcPublisher",   limit: 65535
+    t.text   "dcContributor", limit: 65535
+    t.text   "dcDate",        limit: 65535
+    t.text   "dcType",        limit: 65535
+    t.text   "dcFormat",      limit: 65535
+    t.text   "dcIdentifier",  limit: 65535
+    t.text   "dcSource",      limit: 65535
+    t.text   "dcLanguage",    limit: 65535
+    t.text   "dcRelation",    limit: 65535
+    t.text   "dcCoverage",    limit: 65535
+    t.text   "dcRights",      limit: 65535
+    t.index ["pid"], name: "pid", using: :btree
+  end
+
+  create_table "doRegistry", primary_key: "doPID", id: :string, limit: 64, collation: "utf8_bin", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "systemVersion",            default: 0,   null: false
+    t.string  "ownerId",       limit: 64
+    t.string  "objectState",   limit: 1,  default: "A", null: false
+    t.string  "label",                    default: ""
+  end
+
+  create_table "modelDeploymentMap", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "cModel", limit: 64, null: false, collation: "utf8_bin"
+    t.string "sDef",   limit: 64, null: false, collation: "utf8_bin"
+    t.string "sDep",   limit: 64, null: false, collation: "utf8_bin"
+  end
+
+  create_table "objectPaths", primary_key: "tokenDbID", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "token", limit: 64, default: "", null: false
+    t.string "path",             default: "", null: false
+    t.index ["token"], name: "token", unique: true, using: :btree
+  end
+
+  create_table "pidGen", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "namespace", null: false, collation: "utf8_bin"
+    t.integer "highestID", null: false
+  end
+
+  create_table "searches", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.binary   "query_params", limit: 65535
     t.integer  "user_id"
     t.string   "user_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.index ["user_id"], name: "index_searches_on_user_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["user_id"], name: "index_searches_on_user_id", using: :btree
   end
 
-  create_table "single_use_links", force: :cascade do |t|
+  create_table "single_use_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "downloadKey"
     t.string   "path"
     t.string   "itemId"
@@ -75,7 +137,7 @@ ActiveRecord::Schema.define(version: 20161122133903) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -89,11 +151,11 @@ ActiveRecord::Schema.define(version: 20161122133903) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.boolean  "guest",                  default: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "version_committers", force: :cascade do |t|
+  create_table "version_committers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "obj_id"
     t.string   "datastream_id"
     t.string   "version_id"
